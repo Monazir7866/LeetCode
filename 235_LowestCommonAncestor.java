@@ -1,4 +1,4 @@
-import javax.swing.tree.TreeNode;
+// import javax.swing.tree.TreeNode;
 
 // Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
 
@@ -35,14 +35,14 @@ import javax.swing.tree.TreeNode;
  * }
  */
 
- class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root==null) return null;
-        if(root==p ||root==q) return root;
-        TreeNode start=lowestCommonAncestor(root.left,p,q);
-        TreeNode end=lowestCommonAncestor(root.right,p,q);
-        if(start==null) return end;
-        if(end==null) return start;
-        return root;
-    }
-}
+//  class Solution {
+//     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+//         if(root==null) return null;
+//         if(root==p ||root==q) return root;
+//         TreeNode start=lowestCommonAncestor(root.left,p,q);
+//         TreeNode end=lowestCommonAncestor(root.right,p,q);
+//         if(start==null) return end;
+//         if(end==null) return start;
+//         return root;
+//     }
+// }

@@ -24,3 +24,33 @@
 // Input: nums = [0,0,0]
 // Output: [[0,0,0]]
 // Explanation: The only possible triplet sums up to 0.
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new LinkedList<>();
+        for(int i=0;i<nums.length-2;i++){
+           if(i==0 ||(i>0 && nums[i]!=nums[i-1])){
+               int min=i+1;
+               int max=nums.length-1;
+               int sum=0-nums[i];
+               while(min<max){
+                   if(nums[min]+nums[max]==sum){
+                       res.add(Arrays.asList(nums[i],nums[min],nums[max]));
+                       while(min<max && nums[min]==nums[min+1])    min++;
+                       while(min<max && nums[max]==nums[max-1])  max--;
+                       min++;
+                       max--;
+                   }
+                   else if(nums[min]+nums[max]<sum){
+                       min++;
+                   }
+                   else{
+                       max--;
+                   }
+               }
+           }
+       }
+       return res; 
+    }
+}

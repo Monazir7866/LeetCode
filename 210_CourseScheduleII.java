@@ -20,3 +20,39 @@
 
 // Input: numCourses = 1, prerequisites = []
 // Output: [0]
+
+
+
+
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[] dependancy = new int[numCourses];
+        List<List<Integer>> graph = new ArrayList();
+        for(int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList());
+        } 
+        for(int[] dep : prerequisites) {
+            int a = dep[0];
+            int b = dep[1];
+            dependancy[a]++;
+            graph.get(b).add(a);
+        }
+        Queue<Integer> queue = new LinkedList();
+        for(int i = 0; i < numCourses; i++) {
+            if(dependancy[i] == 0)
+                queue.add(i);
+        }
+        int count = 0;
+        int[] answer = new int[numCourses];
+        while(!queue.isEmpty()) {
+            int course = queue.poll();
+            answer[count++] = course; 
+            for(int child : graph.get(course)) {
+                dependancy[child]--;
+                if(dependancy[child] == 0)
+                    queue.add(child);
+            }
+        }
+        return count == numCourses ? answer : new int[] {};
+    }
+}

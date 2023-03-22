@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 // You are given a positive integer n representing n cities numbered from 1 to n. You are also given a 2D array roads where roads[i] = [ai, bi, distancei] indicates that there is a bidirectional road between cities ai and bi with a distance equal to distancei. The cities graph is not necessarily connected.
 

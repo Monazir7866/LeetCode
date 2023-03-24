@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // There are n cities numbered from 0 to n - 1 and n - 1 roads such that there is only one way to travel between two different cities (this network form a tree). Last year, The ministry of transport decided to orient the roads in one direction because they are too narrow.
 
 // Roads are represented by connections where connections[i] = [ai, bi] represents a road from city ai to city bi.
@@ -26,3 +28,34 @@
 
 // Input: n = 3, connections = [[1,0],[2,0]]
 // Output: 0
+
+
+
+class Solution {
+    public int minReorder(int n, int[][] connections) {
+        ArrayList<int[]>[] a = new ArrayList[n];
+        for(int i=0;i<n;i++){
+            a[i] = new ArrayList<>();
+        }
+
+        for(int[] x:connections){
+            a[x[0]].add(new int[]{x[1],1});
+            a[x[1]].add(new int[]{x[0],0}); 
+        }
+
+        boolean[] vis = new boolean[n];
+
+        return dfs(a,0,vis);
+    }
+
+    private int dfs(ArrayList<int[]>[] a,int x,boolean[] vis){
+        vis[x]=true;
+        int res=0;
+        for(int[] y:a[x]){
+            if(!vis[y[0]]){
+                res+=dfs(a,y[0],vis)+y[1];
+            }
+        }
+        return res;
+    }
+}

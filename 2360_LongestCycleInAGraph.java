@@ -23,3 +23,25 @@
 // Explanation: There are no cycles in this graph.
 
 
+class Solution {
+    public int longestCycle(int[] edges) {
+      int res = -1; 
+      int time = 1;
+      int[] visit = new int[edges.length]; 
+  
+      for (int i = 0; i < edges.length; ++i) {
+        if (visit[i] > 0)
+          continue;
+        final int startTime = time; 
+        int u = i; 
+        while (u != -1 && visit[u] == 0) {
+          visit[u] = time++;
+          u = edges[u]; 
+        }
+       
+        if (u != -1 && visit[u] >= startTime)
+          res = Math.max(res, time - visit[u]);
+      }
+      return res; 
+    }
+  }

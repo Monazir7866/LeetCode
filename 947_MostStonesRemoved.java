@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 // On a 2D plane, we place n stones at some integer coordinate points. Each coordinate point may have at most one stone.
 
 // A stone can be removed if it shares either the same row or the same column as another stone that has not been removed.
@@ -31,3 +34,30 @@
 // Input: stones = [[0,0]]
 // Output: 0
 // Explanation: [0,0] is the only stone on the plane, so you cannot remove it.
+
+
+
+
+class Solution {
+    public int removeStones(int[][] stones) {
+      Set<int[]> visited=new HashSet<>();
+      int res=0;
+      for(int[] s1:stones){
+          if(!visited.contains(s1)){
+              dfs(s1,visited,stones);
+              res++;
+          }
+      }
+     return stones.length-res;   
+    }
+    private void dfs(int[] s1, Set<int[]> visited, int[][] stones){
+     visited.add(s1);
+     for(int[] s2:stones){
+         if(!visited.contains(s2)){
+             if(s1[0]==s2[0] || s1[1]==s2[1]){
+               dfs(s2, visited, stones);  
+             }
+         }
+     }
+    }       
+}

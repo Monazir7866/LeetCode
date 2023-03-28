@@ -19,3 +19,30 @@
 // Input: isConnected = [[1,0,0],[0,1,0],[0,0,1]]
 // Output: 3
 
+class Solution {
+    public int findCircleNum(int[][] isConnected) {
+        int v = isConnected.length;
+        int[] visited = new int[v];
+        int c = 0;
+        for(int i = 0; i<v; i++)
+        {
+            if(visited[i] == 0)
+            {
+                c++;
+                dfs(i, isConnected, visited);
+            }
+        }
+        return c;
+    }
+    public void dfs(int start, int[][] isConnected, int[] visited)
+    {
+        visited[start] = 1;
+        for(int j = 0; j<isConnected.length; j++)
+        {
+            if(isConnected[start][j] == 1 && visited[j] == 0)
+            {
+                dfs(j, isConnected, visited);
+            }
+        }
+    }
+}

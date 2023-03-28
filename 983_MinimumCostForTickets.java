@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 // You have planned some train traveling one year in advance. The days of the year in which you will travel are given as an integer array days. Each day is an integer from 1 to 365.
 
 // Train tickets are sold in three different ways:
@@ -30,3 +32,25 @@
 // On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
 // In total, you spent $17 and covered all the days of your travel.
 
+class Solution {
+    public int mincostTickets(int[] days, int[] costs) {
+        int n = days.length;
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        
+        for (int i = 1; i <= n; i++) {
+            dp[i] = dp[i - 1] + costs[0]; 
+            
+            int j = i - 1;
+            while (j >= 0 && days[i - 1] - days[j] < 7) j--;
+            dp[i] = Math.min(dp[i], dp[j + 1] + costs[1]); 
+            
+            j = i - 1;
+            while (j >= 0 && days[i - 1] - days[j] < 30) j--;
+            dp[i] = Math.min(dp[i], dp[j + 1] + costs[2]); 
+        }
+        
+        return dp[n];
+    }
+}

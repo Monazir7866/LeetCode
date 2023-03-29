@@ -24,3 +24,16 @@
 // Input: satisfaction = [-1,-4,-5]
 // Output: 0
 // Explanation: People do not like the dishes. No dish is prepared.
+
+
+class Solution {
+    public int maxSatisfaction(int[] satisfaction) {
+        Arrays.sort(satisfaction);
+        int res = 0, total = 0, n = satisfaction.length;
+        for (int i = n - 1; i >= 0 && satisfaction[i] > -total; --i) {
+            total += satisfaction[i];
+            res += total;
+        }
+        return res;
+    }
+}

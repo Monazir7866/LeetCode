@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 // You are given two positive integer arrays spells and potions, of length n and m respectively, where spells[i] represents the strength of the ith spell and potions[j] represents the strength of the jth potion.
 
 // You are also given an integer success. A spell and potion pair is considered successful if the product of their strengths is at least success.
@@ -24,3 +26,36 @@
 // - 1st spell: 1 * [8,5,8] = [8,5,8]. 0 pairs are successful. 
 // - 2nd spell: 2 * [8,5,8] = [16,10,16]. 2 pairs are successful. 
 // Thus, [2,0,2] is returned.
+
+
+
+class Solution {
+    public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        int [] result = new int[spells.length];
+        int potionsLength = potions.length;
+        Arrays.sort(potions);
+
+        for(int i=0; i<spells.length; i++){
+            int minIndex = binarySearch(potions, success, spells[i]);
+            result[i] = potionsLength - minIndex;
+        }
+        return result;
+    }
+
+    private int binarySearch(int [] potions, long success, int spell){
+        int left= 0;
+        int right= potions.length;
+        
+        while(left<right){
+            int mid = left + (right-left)/2;
+            long product = (1l * spell) * potions[mid];
+            if(product<success){
+                left=mid+1;
+            }else{
+                right=mid;
+            }
+        }
+
+        return left;
+    }
+}

@@ -19,3 +19,26 @@
 // Input: people = [3,5,3,4], limit = 5
 // Output: 4
 // Explanation: 4 boats (3), (3), (4), (5)
+
+
+import java.util.*;
+
+class Solution {
+    public int numRescueBoats(int[] people, int limit) {
+        Arrays.sort(people);
+        int Count = 0; 
+        int left = 0;
+        int right = people.length - 1;
+        while(left <= right){
+            if(people[left] + people[right] <= limit){
+                left++;
+                right--;
+            }
+            else{
+                right--;
+            }
+            Count++;
+        }
+        return Count;
+    }
+}

@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.Stack;
+
 // Given a string path, which is an absolute path (starting with a slash '/') to a file or directory in a Unix-style file system, convert it to the simplified canonical path.
 
 // In a Unix-style file system, a period '.' refers to the current directory, a double period '..' refers to the directory up a level, and any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'. For this problem, any other format of periods such as '...' are treated as file/directory names.
@@ -28,3 +31,23 @@
 // Output: "/home/foo"
 // Explanation: In the canonical path, multiple consecutive slashes are replaced by a single one.
 
+class Solution {
+    public String simplifyPath(String path) {
+       Stack<String> stack=new Stack<>();
+       String []str=path.split("/");
+       for(String s: str){
+          
+           if(s.equals(".") || s.equals(""))continue;
+           else if(s.equals("..")){if(!stack.isEmpty()) stack.pop();}
+           else stack.push(s);
+       }
+       Collections.reverse(stack);
+       StringBuilder sb=new StringBuilder();
+       while(!stack.isEmpty()){
+           sb.append("/");
+           sb.append(stack.pop());
+       }
+       if(sb.length()==0) return "/";
+       return sb.toString();
+    }
+}

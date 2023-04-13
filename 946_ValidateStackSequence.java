@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 // Given two integer arrays pushed and popped each with distinct values, return true if this could have been the result of a sequence of push and pop operations on an initially empty stack, or false otherwise.
 
  
@@ -16,3 +18,26 @@
 // Input: pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
 // Output: false
 // Explanation: 1 cannot be popped before 2.
+
+
+
+class Solution {
+
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        if (pushed.length != popped.length)
+            return false; 
+        
+        Stack<Integer> stack = new Stack<>();
+        int Index = 0;
+
+        for (int i = 0; i < pushed.length; i++) {
+            stack.push(pushed[i]);
+            while (Index < popped.length  && !stack.isEmpty() && popped[Index] == stack.peek())
+            {
+                stack.pop();
+                Index++;
+            }
+        }
+        return stack.isEmpty(); 
+    }
+}

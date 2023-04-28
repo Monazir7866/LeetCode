@@ -16,3 +16,44 @@
 
 // Input: strs = ["omv","ovm"]
 // Output: 1
+
+
+
+class Solution {
+    public int numSimilarGroups(String[] strs) {
+        int n = strs.length;
+        boolean[] visited = new boolean[n];
+        int groups = 0;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                dfs(i, strs, visited);
+                groups++;
+            }
+        }
+        return groups;
+    }
+    
+    private void dfs(int i, String[] strs, boolean[] visited) {
+        visited[i] = true;
+        String s = strs[i];
+        for (int j = 0; j < strs.length; j++) {
+            if (!visited[j] && isSimilar(s, strs[j])) {
+                dfs(j, strs, visited);
+            }
+        }
+    }
+    
+    private boolean isSimilar(String s1, String s2) {
+        int n = s1.length();
+        int diff = 0;
+        for (int i = 0; i < n; i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                diff++;
+                if (diff > 2) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}

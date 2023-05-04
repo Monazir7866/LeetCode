@@ -29,3 +29,26 @@
 // And the second senator can't exercise any rights anymore since his right has been banned. 
 // And the third senator comes from Dire and he can ban the first senator's right in round 1. 
 // And in round 2, the third senator can just announce the victory since he is the only guy in the senate who can vote.
+
+
+class Solution {
+    public String predictPartyVictory(String senate) {
+   Queue <Integer> r = new LinkedList<>();
+   Queue <Integer> d= new LinkedList<>();
+   for(int i=0;i<senate.length();i++){
+       if(senate.charAt(i)=='R')
+       r.offer(i);
+       else
+       d.offer(i);
+   }
+    while(!r.isEmpty() && !d.isEmpty()){
+       int v1=r.poll();
+       int v2=d.poll();
+       if(v1<v2)
+       r.offer(senate.length()+v1);
+       else
+        d.offer(senate.length()+v2);
+   }
+     return r.isEmpty() ? "Dire":"Radiant";
+    }
+}
